@@ -54,5 +54,4 @@ class UserServiceTest {
 
         assertEquals("password must have almost 6 characters.", exception.getMessage());
     }
-
 }
