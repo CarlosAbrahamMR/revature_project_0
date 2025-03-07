@@ -2,6 +2,7 @@ package Application.controller;
 
 import Application.advice.NotFoundException;
 import Application.model.User;
+import Application.model.UserRole;
 import Application.service.UserService;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
@@ -13,7 +14,7 @@ public class UserController {
     public static Handler getUserById = ctx -> {
         int id = Integer.parseInt(ctx.pathParam("id"));
         String loggedInEmail = ctx.sessionAttribute("user");
-        String role = ctx.sessionAttribute("role");
+        UserRole role = ctx.sessionAttribute("role");
 
         User user = UserService.getUserById(id);
         if (user == null) {
@@ -22,7 +23,7 @@ public class UserController {
         }
 
         // User can only see their own info, Manager can see anyone
-        if (!role.equals("ADMIN") && !user.getEmail().equals(loggedInEmail)) {
+        if (!(role == UserRole.ADMIN) && !user.getEmail().equals(loggedInEmail)) {
             ctx.status(HttpStatus.FORBIDDEN).json("Access denied.");
             return;
         }
@@ -34,7 +35,7 @@ public class UserController {
     public static Handler updateUser = ctx -> {
         int id = Integer.parseInt(ctx.pathParam("id"));
         String loggedInEmail = ctx.sessionAttribute("user");
-        String role = ctx.sessionAttribute("role");
+        UserRole role = ctx.sessionAttribute("role");
 
         User existingUser = UserService.getUserById(id);
         if (existingUser == null) {
@@ -42,7 +43,7 @@ public class UserController {
             return;
         }
 
-        if (!role.equals("ADMIN") && !existingUser.getEmail().equals(loggedInEmail)) {
+        if (!(role==UserRole.ADMIN) && !existingUser.getEmail().equals(loggedInEmail)) {
             ctx.status(HttpStatus.FORBIDDEN).json("Access denied.");
             return;
         }

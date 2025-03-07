@@ -57,6 +57,7 @@ public class LoansService {
             throw new IllegalArgumentException("User not found.");
         }
 
+
         loanDao.insert(loan);
     }
 
@@ -74,7 +75,7 @@ public class LoansService {
             throw new IllegalArgumentException("Loan not found.");
         }
 
-        loan.setPaid(true); // Assuming "approved" means it's marked as paid
+        loan.setApproved(true); // Assuming "approved" means it's marked as paid
         loanDao.update(loan);
     }
 
@@ -84,7 +85,7 @@ public class LoansService {
             throw new IllegalArgumentException("Loan not found.");
         }
 
-        loan.setPaid(false); // Assuming rejected means it's marked as unpaid
+        loan.setApproved(false); // Assuming rejected means it's marked as unpaid
         loanDao.update(loan);
     }
 

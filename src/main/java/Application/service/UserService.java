@@ -36,9 +36,10 @@ public class UserService {
         }
         try {
             user.setRole(UserRole.valueOf(user.getRole().name().toUpperCase()));
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid role: " + user.getRole() + ". Must be ADMIN or USER.");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid role: " + user.getRole() + ". Must be ADMIN or USER.", e);
         }
+
 
         userDAO.insert(user);
     }

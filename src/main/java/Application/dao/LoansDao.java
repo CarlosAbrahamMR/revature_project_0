@@ -20,7 +20,7 @@ public class LoansDao {
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, loan.getDescription());
             pstmt.setDouble(2, loan.getAmount());
-            pstmt.setBoolean(3, loan.isPaid());
+            pstmt.setBoolean(3, loan.isApproved());
             pstmt.setLong(4, loan.getUser().getId());
             pstmt.executeUpdate();
 
@@ -142,7 +142,7 @@ public class LoansDao {
 
             pstmt.setString(1, loan.getDescription());
             pstmt.setDouble(2, loan.getAmount());
-            pstmt.setBoolean(3, loan.isPaid());
+            pstmt.setBoolean(3, loan.isApproved());
             pstmt.setLong(4, loan.getUser().getId());
             pstmt.setInt(5, loan.getId());
 
@@ -166,7 +166,7 @@ public class LoansDao {
         loan.setId(rs.getInt("ID"));
         loan.setDescription(rs.getString("DESCRIPTION"));
         loan.setAmount(rs.getDouble("AMOUNT"));
-        loan.setPaid(rs.getBoolean("PAID"));
+        loan.setApproved(rs.getBoolean("PAID"));
 
         User user = new User();
         user.setId(rs.getLong("USER_ID"));

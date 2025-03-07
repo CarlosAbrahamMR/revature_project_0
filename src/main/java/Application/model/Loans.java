@@ -11,7 +11,7 @@ public class Loans {
     private int id;
     private String description;
     private double amount;
-    private boolean paid;
+    private boolean isApproved;
     private User user;
 
 
